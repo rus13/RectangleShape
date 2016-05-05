@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="algo.js" type="text/javascript"></script>
+</head>
+<body>
+
+<canvas id="myCanvas" width="1400" height="700" style="border:1px solid #c3c3c3;">
+    Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+<script>
+    var input = [[10, 200, 100],[150, 250, 200],[100, 300, 150],[0, 400, 50],[100,200,260],[500,650,150]];
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.translate(0, c.height);
+    ctx.scale(1, -1);
+    for(var i = 0; i < input.length; ++i){
+        var x0 = input[i][0];
+        var x1 = input[i][1];
+        var h = input[i][2];
+        ctx.rect(x0,0,x1-x0,h);
+    }
+    ctx.stroke();
+    var s = shape(input);
+    ctx.moveTo(s[0][0],s[0][1]);
+    ctx.beginPath();
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = 3;
+    for(var i = 0; i < s.length; ++i){
+        var x = s[i][0];
+        var y = s[i][1];
+        ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+    ctx.closePath();
+</script>
+
+</body>
+</html>
