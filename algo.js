@@ -16,17 +16,17 @@ function shape(rect) {
         events.push([rect[i][1], i]);
     }
     //compare function
-    var comp = function (x, y) {
-        var x1 = x[0];
-        var y1 = y[0];
-        var hx = rect[x[1]][2];
-        var hy = rect[y[1]][2];
-        if (x1 == y1 && hx == hy) //start points before end points
-            return (x1 == rect[x[1]][0]) ? -1 : 1;
-        if (x1 == y1) // hight of the rectangle
-            return hy - hx;
+    var comp = function (r1, r2) {
+        var r1x = r1[0];
+        var r2x = r2[0];
+        var r1h = rect[r1[1]][2];
+        var r2h = rect[r2[1]][2];
+        if (r1x == r2x && r1h == r2h) //start points before end points
+            return (r1x == rect[r1[1]][0]) ? -1 : 1;
+        if (r1x == r2x) // height of the rectangle
+            return r2h - r1h;
         else //else x coordinate
-            return x1 - y1;
+            return r1x - r2x;
     };
     events.sort(comp);
     // res contains the desired points
