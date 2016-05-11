@@ -3,9 +3,9 @@
 * Uses a sweep line algorithm, the endpoints of the rectangles are sorted in the events array.
 * We also store the currently highest rectangle.
 * open_rect holds all the rectangles the sweep line is currently intersecting
-* On a rectangle starts event we add this rectangle to open_rect. If the new rectangle is higher than the current one, then we the currently highest rect and add new points
+* On a rectangle starts event we add this rectangle to open_rect. If the new rectangle is higher than the current one, then we update the currently highest rect and add new points
 * On a rectangle ends event we delete this rectangle from open_rect. Also we check if the ended rectangle is the currently highest. If yes, we update the currently highest rect (use open_rect)
-* To make the algorithm into O(n log n) we need the getMax, delete, and add operation of open_rect to be in O(log n) -> Either priority queue or balanced tree. 
+* To make the algorithm into O(n log n) we need the getMax, delete, and add operations of open_rect to be in O(log n) -> Either priority queue or balanced tree.
 * The format of rectangles is [x0, x1, h], where x0 is the left x coordinate, x1 the right x coordinate and h the height of the rectangle.
 * */
 function shape(rect) {
