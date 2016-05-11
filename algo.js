@@ -6,6 +6,7 @@
 * On a rectangle starts event we add this rectangle to open_rect. If the new rectangle is higher than the current one, then we the currently highest rect and add new points
 * On a rectangle ends event we delete this rectangle from open_rect. Also we check if the ended rectangle is the currently highest. If yes, we update the currently highest rect (use open_rect)
 * To make the algorithm into O(n log n) we need the getMax, delete, and add operation of open_rect to be in O(log n) -> Either priority queue or balanced tree. 
+* The format of rectangles is [x0, x1, h], where x0 is the left x coordinate, x1 the right x coordinate and h the height of the rectangle.
 * */
 function shape(rect) {
     //create events: start and end points of rectangles, the events hold the x coordinates and the ids of the rectangles
@@ -28,10 +29,10 @@ function shape(rect) {
             return x1 - y1;
     };
     events.sort(comp);
-    // res contains the points
+    // res contains the desired points
     var res = [];
-    var cur_rect = -1;
-    var cur_h = 0;
+    var cur_rect = -1; //the currently highest rectangle
+    var cur_h = 0;  // the height of cur_rect
     var open_rect = {};
     for (var i = 0; i < events.length; ++i) {
         var e_x = events[i][0];
