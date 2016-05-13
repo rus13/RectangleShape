@@ -21,12 +21,13 @@ function shape(rect) {
         var r2x = r2[0];
         var r1h = rect[r1[1]][2];
         var r2h = rect[r2[1]][2];
-        if (r1x == r2x && r1h == r2h) //start points before end points
-            return (r1x == rect[r1[1]][0]) ? -1 : 1;
-        if (r1x == r2x) // height of the rectangle
-            return r2h - r1h;
-        else //else x coordinate
+        var r1s = (r1x == rect[r1[1]][0]) ? 0 : 1; // 0 if r1 is a start point, 1 otherwise
+        var r2s = (r2x == rect[r2[1]][0]) ? 0 : 1;
+        if(r1x != r2x) // x coordinate
             return r1x - r2x;
+        if(r1s != r2s) //start points before end points
+            return r1s - r2s;
+        return r2h - r1h; // height of the rectangle
     };
     events.sort(comp);
     // res contains the desired points
