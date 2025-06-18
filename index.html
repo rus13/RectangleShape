@@ -1,60 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="algo.js" type="text/javascript"></script>
+    <title>Rectangles</title>
+    <script src="algo_nlogn.js" type="text/javascript"></script>
+    <script src="avl_tree.js" type="text/javascript"></script>
+    <!-- <script src="algo_n2.js" type="text/javascript"></script> -->
 </head>
+
 <body>
 
-<canvas id="myCanvas" width="1400" height="700" style="border:1px solid #c3c3c3;">
-    Your browser does not support the HTML5 canvas tag.
-</canvas>
+    <div id="instructions">Press Space to regenerate rectangles and recompute the hull.</div>
 
-<script>
-    // Parameters of the tests
-    var left_end = 50;
-    var right_end = 1000;
-    var max_height = 500;
-    var num_rectangles = 10;
-    // Random rectangles are created
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-    //var input = [[200, 300, 200], [300, 400, 100]];
-    var input = [];
-    for(var i = 0; i < num_rectangles; ++i){
-        var rand_x0 = getRandomInt(50, right_end - 100);
-        var rand_x1 = getRandomInt(rand_x0 + 50, right_end);
-        var rand_h = getRandomInt(20, max_height);
-        input.push([rand_x0, rand_x1, rand_h]);
-    }
-    // The shape algorithm is executed
-    var s = shape(input);
-    // The result is visualized
-    var c = document.getElementById("myCanvas");
-    var ctx = c.getContext("2d");
-    ctx.translate(0, c.height);
-    ctx.scale(1, -1);
-    for(var i = 0; i < input.length; ++i){
-        var x0 = input[i][0];
-        var x1 = input[i][1];
-        var h = input[i][2];
-        ctx.rect(x0,0,x1-x0,h);
-    }
-    ctx.stroke();
-    ctx.moveTo(s[0][0],s[0][1]);
-    ctx.beginPath();
-    ctx.strokeStyle = 'red';
-    ctx.lineWidth = 3;
-    for(var i = 0; i < s.length; ++i){
-        var x = s[i][0];
-        var y = s[i][1];
-        ctx.lineTo(x,y);
-    }
-    ctx.stroke();
-    ctx.closePath();
-</script>
+    <canvas id="myCanvas" width="1400" height="700" style="border:1px solid #c3c3c3;">
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
+
+
+    <script>
+        // Parameters of the tests
+        const left_end = 50;
+        const right_end = 1000;
+        const max_height = 500;
+        const num_rectangles = 10;
+
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Apply transform once
+        ctx.translate(0, canvas.height);
+        ctx.scale(1, -1);
+
+        // Random rectangles are created
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function generateInput() {
+            const input = [];
+            for (let i = 0; i < num_rectangles; ++i) {
+                const rand_x0 = getRandomInt(50, right_end - 100);
+                const rand_x1 = getRandomInt(rand_x0 + 50, right_end);
+                const rand_h = getRandomInt(20, max_height);
+                input.push([rand_x0, rand_x1, rand_h]);
+            }
+            return input;
+        }
+
+        function draw() {
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const input = generateInput();
+            const s = shape(input);
+
+            // Draw rectangles
+            ctx.beginPath();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < input.length; ++i) {
+                const [x0, x1, h] = input[i];
+                ctx.rect(x0, 0, x1 - x0, h);
+            }
+            ctx.stroke();
+
+            // Draw hull
+            ctx.beginPath();
+            ctx.strokeStyle = 'red';
+            ctx.lineWidth = 3;
+            ctx.moveTo(s[0][0], s[0][1]);
+            for (let i = 0; i < s.length; ++i) {
+                ctx.lineTo(s[i][0], s[i][1]);
+            }
+            ctx.stroke();
+            ctx.closePath();
+        }
+
+        // Initial draw
+        draw();
+
+        // Redraw on space key press
+        window.addEventListener("keydown", function (event) {
+            if (event.code === "Space") {
+                event.preventDefault();
+                draw();
+            }
+        });
+    </script>
 
 </body>
+
 </html>

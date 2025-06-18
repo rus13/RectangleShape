@@ -1,5 +1,5 @@
 /*
- * O(n^2) solution
+ * O(n log n) solution
  * Uses a sweep line algorithm, the endpoints of the rectangles are sorted in the events array.
  * We also store the currently highest rectangle.
  * open_rect holds all the rectangles the sweep line is currently intersecting
@@ -8,7 +8,7 @@
  * To make the algorithm into O(n log n) we need the getMax, delete, and add operations of open_rect to be in O(log n) -> Either priority queue or balanced tree.
  * The format of rectangles is [x0, x1, h], where x0 is the left x coordinate, x1 the right x coordinate and h the height of the rectangle.
  * */
-function shape_nlogn(rect) {
+function shape(rect) {
     //create events: start and end points of rectangles, the events hold the x coordinates and the ids of the rectangles
     var events = [];
     for (var i = 0; i < rect.length; ++i) {
