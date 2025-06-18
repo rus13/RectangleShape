@@ -7,13 +7,11 @@ This project visualizes the **upper silhouette (or skyline)** formed by randomly
 - Generates a set of random, axis-aligned rectangles.
 - Computes the **upper outline** (similar to a city skyline) that encloses the tops of all rectangles.
 - Renders both the rectangles and the computed upper shape on an HTML canvas.
-- Press the **Space** key to regenerate a new random configuration and recompute the outline.
 
 ## Technologies Used
 
 - HTML5 + JavaScript
-- Custom skyline algorithm (`algo_nlogn.js`)
-- AVL Tree data structure (`avl_tree.js`) for efficient interval processing
+- AVL Tree data structure for efficient interval processing
 
 ## Usage
 

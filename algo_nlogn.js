@@ -8,7 +8,7 @@
  * To make the algorithm into O(n log n) we need the getMax, delete, and add operations of open_rect to be in O(log n) -> Either priority queue or balanced tree.
  * The format of rectangles is [x0, x1, h], where x0 is the left x coordinate, x1 the right x coordinate and h the height of the rectangle.
  * */
-function shape(rect) {
+function skyline(rect) {
     //create events: start and end points of rectangles, the events hold the x coordinates and the ids of the rectangles
     var events = [];
     for (var i = 0; i < rect.length; ++i) {
